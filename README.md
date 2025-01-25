@@ -30,7 +30,7 @@ https://github.com/PiachkoAliaksey/test-app-realmond.git
 
 ## Navigate into the project directory
 
-### `git app-mindbox`
+### `cd app-mindbox`
 
 ## Install the dependencies:
 
