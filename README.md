@@ -1,5 +1,15 @@
 ## Web application Todos.
 
+The application is created using TypeScript, React, and React Hooks.
+
+The component library is Chakra UI.
+
+The key features are covered by tests.
+
+The project runs with the command npm i && npm run start.
+
+The project is available on GitHub Pages or Vercel.
+
 
 #### app-mindbox-4eac9pdaz-piachkoaliakseys-projects.vercel.app
 
