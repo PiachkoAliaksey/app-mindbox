@@ -1,10 +1,13 @@
 import { Button } from '@chakra-ui/react';
-import { useTodos } from '../store/store';
-import { TodosState } from '../types';
+import { Todo } from '../types';
+import { IClearCompleted } from '../types';
 
+const ClearCompleted = ({setTodos}:IClearCompleted) => {
+    // const clearCompleted = useTodos((state: TodosState) => state.clearCompleted);
 
-const ClearCompleted = () => {
-    const clearCompleted = useTodos((state: TodosState) => state.clearCompleted);
+    const handlerClearCompleted = () => {
+        setTodos(prev=>[...prev.filter((item: Todo) => !item.completed)])
+    }
 
     return (
         <Button
@@ -12,7 +15,7 @@ const ClearCompleted = () => {
             color='#696969'
             size={'sm'}
             fontWeight={'400'}
-            onClick={() => clearCompleted()} >ClearCompleted</Button>
+            onClick={() => handlerClearCompleted()} >ClearCompleted</Button>
     )
 }
 

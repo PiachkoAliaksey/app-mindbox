@@ -9,7 +9,7 @@ describe('ClearCompleted component', () => {
     it('renders the button correctly', () => {
         render(
             <ChakraProvider value={defaultSystem}>
-                <ClearCompleted />
+                <ClearCompleted setTodos={()=>{}} />
             </ChakraProvider>
         );
 

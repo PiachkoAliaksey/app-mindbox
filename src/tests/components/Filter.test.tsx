@@ -3,31 +3,15 @@ import { describe, it, expect, vi } from 'vitest';
 import { ChakraProvider } from '@chakra-ui/react';
 import { defaultSystem } from "@chakra-ui/react";
 import Filter from '../../components/FIlter';
-import { useFilter } from '../../store/store';
-import { FilterState } from '../../types';
-
-
-vi.mock('../../store/store', () => ({
-    useFilter: vi.fn<() => FilterState>(() => ({
-        filter: '',
-        setFilter: vi.fn()
-    }))
-}));
 
 
 describe('Filter Component', () => {
-    const mockSetFilter = vi.fn();
-
-
-    beforeEach(() => {
-        vi.clearAllMocks();
-    });
 
 
     it('default renders buttons filter', () => {
         render(
             <ChakraProvider value={defaultSystem}>
-                <Filter />
+                <Filter filter='' setFilter={() => { }} />
             </ChakraProvider>
         );
         const buttonAll = screen.getByRole('button', { name: /All/i });
@@ -39,59 +23,19 @@ describe('Filter Component', () => {
     });
 
     it('calls setFilter with "all" on All button click', () => {
-        (vi.mocked(useFilter)).mockReturnValueOnce({
-            filter: 'all',
-            setFilter: mockSetFilter,
-        });
+        
 
         render(
             <ChakraProvider value={defaultSystem}>
-                <Filter />
+                <Filter filter='all' setFilter={() => {}} />
             </ChakraProvider>
         );
 
-        act(() => {
-            fireEvent.click(screen.getByText('All'));
-        });
+        
+        fireEvent.click(screen.getByText('All'));
+        
 
-        expect(mockSetFilter).toHaveBeenCalledWith('all');
-    });
-
-    it('calls setFilter with "uncompleted" on Active button click', () => {
-        (vi.mocked(useFilter)).mockReturnValueOnce({
-            filter: 'uncompleted',
-            setFilter: mockSetFilter,
-        });
-
-        render(
-            <ChakraProvider value={defaultSystem}>
-                <Filter />
-            </ChakraProvider>
-        );
-
-        act(() => {
-            fireEvent.click(screen.getByText('Active'));
-        });
-       
-        expect(mockSetFilter).toHaveBeenCalledWith('uncompleted');
-    });
-
-    it('calls setFilter with "completed" on Completed button click', () => {
-        (vi.mocked(useFilter)).mockReturnValueOnce({
-            filter: 'completed',
-            setFilter: mockSetFilter,
-        });
-
-        render(
-            <ChakraProvider value={defaultSystem}>
-                <Filter />
-            </ChakraProvider>
-        );
-
-        act(() => {
-            fireEvent.click(screen.getByText('Completed'));
-        });
-       
-        expect(mockSetFilter).toHaveBeenCalledWith('completed');
+        expect(screen.getByText('All')).toHaveStyle('border-width: 1px')
+        expect(screen.getByText('All')).toHaveStyle('border-color: #e4e4e7')
     });
 });

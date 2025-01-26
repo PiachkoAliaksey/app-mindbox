@@ -1,5 +1,5 @@
 import { it, expect, describe } from 'vitest';
-import { render, screen} from '@testing-library/react';
+import { render, screen,act,fireEvent } from '@testing-library/react';
 import App from '../App';
 import { ChakraProvider } from '@chakra-ui/react';
 import { defaultSystem } from "@chakra-ui/react";
@@ -15,5 +15,23 @@ describe('App', () => {
             </ChakraProvider>
         )
         expect(screen.getByText(/todos/i)).toBeInTheDocument()
+    })
+
+    it('should increase item left', () => {
+        render(
+            <ChakraProvider value={defaultSystem}>
+                <App />
+            </ChakraProvider>
+        )
+        const inputElement: HTMLInputElement = screen.getByRole('searchbox');
+        const textElement = screen.getByText(/items left/i);
+        
+        act(() => {
+            fireEvent.change(inputElement, { target: { value: 'New Task' } });
+            fireEvent.keyDown(inputElement, { key: 'Enter' });
+        });
+
+    
+        expect(textElement).toHaveTextContent('3 items left');
     })
 })

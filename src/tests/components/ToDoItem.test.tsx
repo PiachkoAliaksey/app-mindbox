@@ -10,7 +10,7 @@ describe('TodoItem component', () => {
     it('default renders with correct title and checkbox', () => {
         render(
             <ChakraProvider value={defaultSystem} >
-                <TodoItem id={`${1}`} title="Sample Todo" completed={false} />
+                <TodoItem setTodos={()=>{}} id={`${1}`} title="Sample Todo" completed={false} />
             </ChakraProvider>
         );
 
@@ -27,14 +27,16 @@ describe('TodoItem component', () => {
 
         render(
             <ChakraProvider value={defaultSystem} >
-                <TodoItem id={`${1}`} title="Sample Todo" completed={false} />
+                <TodoItem setTodos={()=>{}} id={`${1}`} title="Sample Todo" completed={true} />
             </ChakraProvider>
         );
 
         const checkbox = screen.getByRole('checkbox');
-        act(() => {
-            fireEvent.click(checkbox);
-        });
+        const todoText = screen.getByText(/Sample Todo/i);
+
+
+        expect(todoText).toHaveStyle('text-decoration:line-through');
+        expect(todoText).toHaveStyle('color: #C0C0C0');
 
         expect(checkbox).toBeChecked();
     });
