@@ -1,12 +1,13 @@
-import { Text } from '@chakra-ui/react';
-import { useTodos } from '../store/store';
-import { useShallow } from 'zustand/react/shallow';
-import { TodosState } from '../types';
+import { Text,Box } from '@chakra-ui/react';
+import { useMemo } from 'react';
+import { ILeftTodos } from '../types';
 
-const LeftTodos = () => {
-  const count = useTodos(useShallow((state: TodosState) => state.todos.filter((item) => !item.completed).length));
+const LeftTodos = ({todos}:ILeftTodos) => {
 
-  return <Text>{count} items left </Text>;
+  const countLeftTodos = useMemo(()=>todos.filter((item) => !item.completed).length,[todos]);
+  const activeTodos = useMemo(()=>todos.filter((item) => item.completed).length,[todos]) ;
+
+  return <Text position={'relative'}>{countLeftTodos} items left <Box position={'absolute'} role='cell' opacity={0} >{activeTodos}</Box> </Text>;
 };
 
 export default LeftTodos;

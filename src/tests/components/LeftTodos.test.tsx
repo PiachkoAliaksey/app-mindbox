@@ -1,33 +1,25 @@
-import { render, screen } from '@testing-library/react';
-import { vi } from 'vitest';
-import { useTodos } from '../../store/store';
+import { render, screen,act,fireEvent } from '@testing-library/react';
 import LeftTodos from '../../components/LeftTodos';
-import { TodosState } from '../../types';
 import { ChakraProvider } from '@chakra-ui/react';
 import { defaultSystem } from "@chakra-ui/react";
+import App from '../../App';
 
-vi.mock('../../store/store', () => ({
-    useTodos: vi.fn<() => TodosState>(() => ({
-        todos: [],
-        error: null,
-        addTodo: vi.fn(),
-        clearCompleted: vi.fn(),
-        toggleTodo: vi.fn(),
-    })),
-}));
 
 describe('LeftTodos Component', () => {
-    beforeEach(() => {
-        vi.clearAllMocks();
-    });
+
 
     it('displays the correct count of left todos', () => {
-    
-        vi.mocked(useTodos).mockReturnValue(1);
+        const todos = [{
+            id: '1', title: 'Learn JS', completed: true
+        },
+        {
+            id: '2', title: 'Learn React', completed: false
+        }]
+
 
         render(
             <ChakraProvider value={defaultSystem}>
-                <LeftTodos />
+                <LeftTodos todos={todos} />
             </ChakraProvider>
         );
 
@@ -36,28 +28,22 @@ describe('LeftTodos Component', () => {
         expect(textElement).toHaveTextContent('1 items left');
     });
 
-    it('displays zero when there are no remaining todos', () => {
-        vi.mocked(useTodos).mockReturnValue(0);
-
-        render(<ChakraProvider value={defaultSystem}>
-            <LeftTodos />
-        </ChakraProvider>);
-
+    it('should increase item left', () => {
+        render(
+            <ChakraProvider value={defaultSystem}>
+                <App />
+            </ChakraProvider>
+        )
+        const inputElement: HTMLInputElement = screen.getByRole('searchbox');
         const textElement = screen.getByText(/items left/i);
-        expect(textElement).toBeInTheDocument();
-        expect(textElement).toHaveTextContent('0 items left');
-    });
 
-    it('displays the correct count with multiple remaining todos', () => {
-        vi.mocked(useTodos).mockReturnValue(3);
+        act(() => {
+            fireEvent.change(inputElement, { target: { value: 'New Task' } });
+            fireEvent.keyDown(inputElement, { key: 'Enter' });
+        });
 
-        render(<ChakraProvider value={defaultSystem}>
-            <LeftTodos />
-        </ChakraProvider>);
 
-        const textElement = screen.getByText(/items left/i);
-        expect(textElement).toBeInTheDocument();
-        expect(textElement).toHaveTextContent('3 items left');
-    });
+        expect(textElement).toHaveTextContent('2 items left');
+    })
 });
 

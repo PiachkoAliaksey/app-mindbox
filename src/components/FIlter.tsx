@@ -1,8 +1,8 @@
 import { Button, Stack } from '@chakra-ui/react';
-import { useFilter } from '../store/store';
+import { IFilter } from '../types';
 
-const Filter = () => {
-    const { filter, setFilter } = useFilter();
+
+const Filter = ({ filter, setFilter }: IFilter) => {
 
     return (
         <Stack gap={2} direction="row">
@@ -41,4 +41,4 @@ const Filter = () => {
     );
 };
 
-export default  Filter ;
+export default Filter;

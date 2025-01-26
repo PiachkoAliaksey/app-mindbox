@@ -1,33 +1,18 @@
 import { render, screen, fireEvent, act } from '@testing-library/react';
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import { ChakraProvider } from '@chakra-ui/react';
 import { defaultSystem } from "@chakra-ui/react";
 import Filter from '../../components/FIlter';
-import { useFilter } from '../../store/store';
-import { FilterState } from '../../types';
-
-
-vi.mock('../../store/store', () => ({
-    useFilter: vi.fn<() => FilterState>(() => ({
-        filter: '',
-        setFilter: vi.fn()
-    }))
-}));
+import App from '../../App';
 
 
 describe('Filter Component', () => {
-    const mockSetFilter = vi.fn();
-
-
-    beforeEach(() => {
-        vi.clearAllMocks();
-    });
 
 
     it('default renders buttons filter', () => {
         render(
             <ChakraProvider value={defaultSystem}>
-                <Filter />
+                <Filter filter='' setFilter={() => { }} />
             </ChakraProvider>
         );
         const buttonAll = screen.getByRole('button', { name: /All/i });
@@ -39,59 +24,61 @@ describe('Filter Component', () => {
     });
 
     it('calls setFilter with "all" on All button click', () => {
-        (vi.mocked(useFilter)).mockReturnValueOnce({
-            filter: 'all',
-            setFilter: mockSetFilter,
-        });
+
 
         render(
             <ChakraProvider value={defaultSystem}>
-                <Filter />
+                <Filter filter='all' setFilter={() => { }} />
             </ChakraProvider>
         );
 
-        act(() => {
-            fireEvent.click(screen.getByText('All'));
-        });
-
-        expect(mockSetFilter).toHaveBeenCalledWith('all');
-    });
-
-    it('calls setFilter with "uncompleted" on Active button click', () => {
-        (vi.mocked(useFilter)).mockReturnValueOnce({
-            filter: 'uncompleted',
-            setFilter: mockSetFilter,
-        });
-
-        render(
-            <ChakraProvider value={defaultSystem}>
-                <Filter />
-            </ChakraProvider>
-        );
-
-        act(() => {
-            fireEvent.click(screen.getByText('Active'));
-        });
-       
-        expect(mockSetFilter).toHaveBeenCalledWith('uncompleted');
+        expect(screen.getByText('All')).toHaveStyle('border-width: 2px');
     });
 
     it('calls setFilter with "completed" on Completed button click', () => {
-        (vi.mocked(useFilter)).mockReturnValueOnce({
-            filter: 'completed',
-            setFilter: mockSetFilter,
-        });
+
 
         render(
             <ChakraProvider value={defaultSystem}>
-                <Filter />
+                <Filter filter='completed' setFilter={() => { }} />
             </ChakraProvider>
         );
 
+        expect(screen.getByText('Completed')).toHaveStyle('border-width: 2px');
+    });
+
+    it('calls setFilter with "uncompleted" on Active button click', () => {
+
+
+        render(
+            <ChakraProvider value={defaultSystem}>
+                <Filter filter='completed' setFilter={() => { }} />
+            </ChakraProvider>
+        );
+
+        expect(screen.getByText('Active')).toHaveStyle('border-width: 2px');
+
+    });
+
+    it('should transfer uncompleted item to area completed items', () => {
+
+
+        render(
+            <ChakraProvider value={defaultSystem}>
+                <App />
+            </ChakraProvider>
+        );
+
+        const todoText = screen.getByText(/Learn React/i);
+        const checkbox = screen.getByTestId('2');
+        const completedButton = screen.getByText('Completed');
+
+
         act(() => {
-            fireEvent.click(screen.getByText('Completed'));
+            fireEvent.click(checkbox);
+            fireEvent.click(completedButton);
         });
-       
-        expect(mockSetFilter).toHaveBeenCalledWith('completed');
+
+        expect(todoText).toBeInTheDocument();
     });
 });

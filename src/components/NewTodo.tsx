@@ -3,18 +3,26 @@ import {
 } from '@chakra-ui/react';
 
 import { useState } from 'react';
-import { useTodos } from '../store/store';
-import { TodosState } from '../types';
+import { Todo } from '../types';
+import { nanoid } from 'nanoid';
+import { INewToDo } from '../types';
 
-const NewTodo = () => {
+
+const NewTodo = ({ setTodos }: INewToDo) => {
     const [value, setValue] = useState('');
 
-    const addTodo = useTodos((state: TodosState) => state.addTodo);
+    const addToDo = (title: string) => {
+        setTodos(prev => {
+            const newTodo: Todo = { id: nanoid(), title, completed: false }
+
+            return [...prev, newTodo]
+        })
+    }
 
     const handleAddTodo = (e: React.KeyboardEvent<HTMLInputElement>, text: string) => {
         const trimmedValue = text.trim();
         if (e.key === 'Enter' && trimmedValue) {
-            addTodo(trimmedValue);
+            addToDo(trimmedValue)
             setValue('');
         }
     };
