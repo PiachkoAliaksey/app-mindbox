@@ -21,7 +21,7 @@ const TodoList = ({ todos, filter, setTodos }: ITodoList) => {
 
 
   return (
-    <Stack width='100%' minH="200px">
+    <Stack role='list' width='100%' minH="200px">
       {filteredTodos.map((todo) => {
         return (
           <>

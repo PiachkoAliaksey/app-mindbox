@@ -1,7 +1,8 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen,act,fireEvent } from '@testing-library/react';
 import LeftTodos from '../../components/LeftTodos';
 import { ChakraProvider } from '@chakra-ui/react';
 import { defaultSystem } from "@chakra-ui/react";
+import App from '../../App';
 
 
 describe('LeftTodos Component', () => {
@@ -26,5 +27,23 @@ describe('LeftTodos Component', () => {
         expect(textElement).toBeInTheDocument();
         expect(textElement).toHaveTextContent('1 items left');
     });
+
+    it('should increase item left', () => {
+        render(
+            <ChakraProvider value={defaultSystem}>
+                <App />
+            </ChakraProvider>
+        )
+        const inputElement: HTMLInputElement = screen.getByRole('searchbox');
+        const textElement = screen.getByText(/items left/i);
+
+        act(() => {
+            fireEvent.change(inputElement, { target: { value: 'New Task' } });
+            fireEvent.keyDown(inputElement, { key: 'Enter' });
+        });
+
+
+        expect(textElement).toHaveTextContent('2 items left');
+    })
 });
 

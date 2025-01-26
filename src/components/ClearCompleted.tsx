@@ -3,7 +3,6 @@ import { Todo } from '../types';
 import { IClearCompleted } from '../types';
 
 const ClearCompleted = ({setTodos}:IClearCompleted) => {
-    // const clearCompleted = useTodos((state: TodosState) => state.clearCompleted);
 
     const handlerClearCompleted = () => {
         setTodos(prev=>[...prev.filter((item: Todo) => !item.completed)])

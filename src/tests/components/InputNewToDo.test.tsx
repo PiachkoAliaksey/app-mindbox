@@ -10,10 +10,6 @@ describe('NewTodo Input', () => {
     const mockAddTodo = vi.fn();
 
 
-    beforeEach(() => {
-        vi.clearAllMocks();
-    });
-
     it('should render input field empty', () => {
         render(
             <ChakraProvider value={defaultSystem}>

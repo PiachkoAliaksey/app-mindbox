@@ -12,8 +12,8 @@ const handlerToggleTodo = (todoId:string)=>{
 
     return (
         <HStack gap={4} padding={2}>
-            <Checkbox size={'lg'} variant={'outline'} checked={completed} onChange={() => handlerToggleTodo(id)} />
-            <Text textDecor={completed ? 'line-through' : ''} color={completed ? '#C0C0C0' : '#696969'} >{title}</Text>
+            <Checkbox data-testid={id} role='checkbox' size={'lg'} variant={'outline'} checked={completed} onChange={() => handlerToggleTodo(id)} />
+            <Text role='listitem' textDecor={completed ? 'line-through' : ''} color={completed ? '#C0C0C0' : '#696969'} >{title}</Text>
         </HStack>
     );
 };
