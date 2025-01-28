@@ -13,7 +13,7 @@ export interface TodosState {
     error: string | null;
     addTodo: (title: string) => void;
     toggleTodo: (todoId: string) => void;
-    clearCompleted: () => void
+    clearCompleted: () => void;
 }
 
 export interface TodosStateMock {
@@ -35,12 +35,12 @@ export interface IClearCompleted {
 }
 
 export interface IFilter {
-    setFilter: React.Dispatch<React.SetStateAction<string>>,
-    filter: string
+    setFilter: React.Dispatch<React.SetStateAction<string>>;
+    filter: string;
 }
 
 export interface ILeftTodos {
-    todos: Todo[]
+    todos: Todo[];
 }
 
 export interface INewToDo {
@@ -55,7 +55,7 @@ export interface ITodoItem {
 }
 
 export interface ITodoList {
-    todos: Todo[],
-    filter: string,
-    setTodos: Dispatch<SetStateAction<Todo[]>>
+    todos: Todo[];
+    filter: string;
+    setTodos: Dispatch<SetStateAction<Todo[]>>;
   }
