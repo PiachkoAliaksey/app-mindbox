@@ -26,7 +26,7 @@ Clone the repository:
 
 ### `git clone`
 
-https://github.com/PiachkoAliaksey/test-app-realmond.git
+https://github.com/PiachkoAliaksey/app-mindbox.git
 
 ## Navigate into the project directory
 
