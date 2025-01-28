@@ -1,6 +1,6 @@
 import { Stack, Separator } from '@chakra-ui/react';
 import TodoItem from './ToDoItem';
-import { useMemo} from 'react';
+import { useMemo } from 'react';
 import { ITodoList } from '../types';
 
 
@@ -17,7 +17,7 @@ const TodoList = ({ todos, filter, setTodos }: ITodoList) => {
         return todos;
     }
   }
-  const filteredTodos = useMemo(() => filterTodos(), [todos, filter]);
+  const filteredTodos = useMemo(() => filterTodos(), [todos, filter, filterTodos]);
 
 
   return (
