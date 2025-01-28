@@ -44,18 +44,18 @@ export interface ILeftTodos {
 }
 
 export interface INewToDo {
-    setTodos: Dispatch<SetStateAction<{ id: string; title: string; completed: boolean; }[]>>
+    setTodos: Dispatch<SetStateAction<Todo[]>>
 }
 
 export interface ITodoItem {
     id: string;
     title: string;
     completed: boolean;
-    setTodos:Dispatch<SetStateAction<{ id: string; title: string; completed: boolean; }[]>>;
+    setTodos:Dispatch<SetStateAction<Todo[]>>;
 }
 
 export interface ITodoList {
     todos: Todo[],
     filter: string,
-    setTodos: Dispatch<SetStateAction<{ id: string; title: string; completed: boolean; }[]>>
+    setTodos: Dispatch<SetStateAction<Todo[]>>
   }
