@@ -44,7 +44,7 @@ export interface ILeftTodos {
 }
 
 export interface INewToDo {
-    setTodos: Dispatch<SetStateAction<Todo[]>>
+    addToDo : (title: string) => void
 }
 
 export interface ITodoItem {

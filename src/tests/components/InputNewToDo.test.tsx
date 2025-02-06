@@ -13,7 +13,7 @@ describe('NewTodo Input', () => {
     it('should render input field empty', () => {
         render(
             <ChakraProvider value={defaultSystem}>
-                <NewTodo setTodos={()=>{}} />
+                <NewTodo addToDo={()=>{}} />
             </ChakraProvider>
         );
 
@@ -25,7 +25,7 @@ describe('NewTodo Input', () => {
     it('imput focus', () => {
         render(
             <ChakraProvider value={defaultSystem}>
-                <NewTodo setTodos={()=>{}}/>
+                <NewTodo addToDo={()=>{}}/>
             </ChakraProvider>
         );
 
@@ -37,7 +37,7 @@ describe('NewTodo Input', () => {
     it('allows user to type in the input field', () => {
         render(
             <ChakraProvider value={defaultSystem}>
-                <NewTodo setTodos={()=>{}} />
+                <NewTodo addToDo={()=>{}} />
             </ChakraProvider>);
         const inputElement: HTMLInputElement = screen.getByRole('searchbox');
 
@@ -52,7 +52,7 @@ describe('NewTodo Input', () => {
     it('does not add a todo if the input is empty', () => {
         render(
             <ChakraProvider value={defaultSystem}>
-                <NewTodo setTodos={()=>{}} />
+                <NewTodo addToDo={()=>{}} />
             </ChakraProvider>);
 
         const inputElement: HTMLInputElement = screen.getByRole('searchbox');
