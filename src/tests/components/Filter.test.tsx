@@ -1,5 +1,6 @@
 import { render, screen, fireEvent, act } from '@testing-library/react';
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
+import user from '@testing-library/user-event';
 import { ChakraProvider } from '@chakra-ui/react';
 import { defaultSystem } from "@chakra-ui/react";
 import Filter from '../../components/FIlter';
@@ -40,11 +41,17 @@ describe('Filter Component', () => {
 
         render(
             <ChakraProvider value={defaultSystem}>
-                <Filter filter='completed' setFilter={() => { }} />
+                <App />
             </ChakraProvider>
         );
 
-        expect(screen.getByText('Completed')).toHaveStyle('border-width: 2px');
+        const buttonCompleted = screen.getByText('Completed');
+
+        act(() => {
+            fireEvent.click(buttonCompleted)
+        })
+
+        expect(buttonCompleted).toHaveStyle('border-width: 2px');
     });
 
     it('calls setFilter with "uncompleted" on Active button click', () => {
@@ -52,11 +59,17 @@ describe('Filter Component', () => {
 
         render(
             <ChakraProvider value={defaultSystem}>
-                <Filter filter='completed' setFilter={() => { }} />
+                <App />
             </ChakraProvider>
         );
 
-        expect(screen.getByText('Active')).toHaveStyle('border-width: 2px');
+        const buttonActive= screen.getByText('Active');
+
+        act(() => {
+            fireEvent.click(buttonActive)
+        })
+
+        expect(buttonActive).toHaveStyle('border-width: 2px');
 
     });
 

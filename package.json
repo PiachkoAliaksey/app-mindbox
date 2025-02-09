@@ -20,6 +20,7 @@
     "@hookform/resolvers": "^3.9.1",
     "@tanstack/react-query": "^5.62.8",
     "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/user-event": "^14.6.1",
     "axios": "^1.7.9",
     "chai": "^5.1.2",
     "date-fns": "3.2",
